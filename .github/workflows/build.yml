@@ -38,8 +38,10 @@ jobs:
         docker push ${ECR_REGISTRY}/nexoos-images/ruby-base:latest
  
         echo "============ Ruby 2.5 ==============="
-        docker build -f ruby/2.5.Dockerfile \
+        docker build \
+        --cache-from ${ECR_REGISTRY}/nexoos-images/ruby-base:latest \
         --build-arg BASE_IMAGE=${ECR_REGISTRY}/nexoos-images/ruby-base:latest \
+        -f ruby/2.5.Dockerfile \
         -t ${ECR_REGISTRY}/nexoos-images/ruby:2.5 .
         docker push ${ECR_REGISTRY}/nexoos-images/ruby:2.5
  
