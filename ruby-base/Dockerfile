@@ -33,8 +33,9 @@ RUN apt-get update && \
     wkhtmltopdf \
     ucommon-utils \
     language-pack-en \
-    sudo \
-    postgresql-client-${POSTGRESQL_VERSION} \
+    sudo 
+
+RUN apt-get postgresql-client-${POSTGRESQL_VERSION} \
     libpq-dev
 
 #============== NPM =============#
