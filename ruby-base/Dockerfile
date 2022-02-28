@@ -35,7 +35,8 @@ RUN apt-get update && \
     language-pack-en \
     sudo 
 
-RUN apt-get postgresql-client-${POSTGRESQL_VERSION} \
+RUN apt-get update && \
+    apt-get postgresql-client-${POSTGRESQL_VERSION} \
     libpq-dev
 
 #============== NPM =============#
