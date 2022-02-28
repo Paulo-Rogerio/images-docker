@@ -3,7 +3,7 @@ FROM ubuntu:latest
 LABEL authors="Paulo Rogério"
 MAINTAINER paulo.gsilva@nexoos.com.br
 
-ARG POSTGRESQL_VERSION="12"
+ARG POSTGRESQL_VERSION="10"
 ARG NODE_VERSION="14"
 
 ENV TZ=America/Sao_Paulo
@@ -35,7 +35,8 @@ RUN apt-get update && \
     language-pack-en \
     sudo 
 
-RUN apt-get update && \
+RUN echo ${POSTGRESQL_VERSION} \
+    apt-get update && \
     apt-get -y postgresql-client-${POSTGRESQL_VERSION} \
     libpq-dev
 
