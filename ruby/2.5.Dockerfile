@@ -1,4 +1,5 @@
-FROM BASE_IMAGE
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
 
 LABEL authors="Paulo Rogério"
 
