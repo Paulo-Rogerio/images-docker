@@ -31,7 +31,7 @@ jobs:
       run: |
         echo "============ Ruby Base ==============="
         docker pull ${ECR_REGISTRY}/nexoos-images/ruby-base:latest || true
-        docker build -f ruby-base/Dockerfile -t ${ECR_REGISTRY}/nexoos-images/ruby-base:latest .
+        docker build --pull -f ruby-base/Dockerfile -t ${ECR_REGISTRY}/nexoos-images/ruby-base:latest .
         docker push ${ECR_REGISTRY}/nexoos-images/ruby-base:latest
  
         echo "============ Ruby 2.5 ==============="
