@@ -31,7 +31,8 @@ jobs:
       run: |
         echo "============ Ruby Base ==============="
         docker pull ${ECR_REGISTRY}/nexoos-images/ruby-base:latest || true
-        docker build --cache-from ${ECR_REGISTRY}/nexoos-images/ruby-base:latest \
+        docker build \
+        --cache-from ${ECR_REGISTRY}/nexoos-images/ruby-base:latest \
         -f ruby-base/Dockerfile \
         -t ${ECR_REGISTRY}/nexoos-images/ruby-base:latest .
         docker push ${ECR_REGISTRY}/nexoos-images/ruby-base:latest
