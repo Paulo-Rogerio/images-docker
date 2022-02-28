@@ -29,8 +29,14 @@ jobs:
       env:
         ECR_REGISTRY: ${{ secrets.AWS_ECR_REGISTRY }}
       run: |
-        echo "================================"
+        echo "============ Ruby Base ==============="
+        docker pull ${ECR_REGISTRY}/nexoos-images/ruby-base:latest || true
         docker build -f ruby-base/Dockerfile -t ${ECR_REGISTRY}/nexoos-images/ruby-base:latest .
         docker push ${ECR_REGISTRY}/nexoos-images/ruby-base:latest
-        echo
-        echo "================================"
+ 
+        echo "============ Ruby 2.5 ==============="
+        docker build -f ruby/2.5.Dockerfile \
+        --build-arg BASE_IMAGE=${ECR_REGISTRY}/nexoos-images/ruby-base:latest \
+        -t ${ECR_REGISTRY}/nexoos-images/ruby:2.5 .
+        docker push ${ECR_REGISTRY}/nexoos-images/ruby:2.5
+ 
