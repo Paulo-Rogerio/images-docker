@@ -42,11 +42,11 @@ RUN mkdir /root/.ssh && \
 RUN echo ${NODE_VERSION} \
     curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - && \
     apt-get update && \
-    apt-get -y nodejs 
+    apt-get install -y nodejs 
 
 RUN echo ${POSTGRESQL_VERSION} \
     apt-get update && \
-    apt-get -y postgresql-client-${POSTGRESQL_VERSION} \
+    apt-get install -y postgresql-client-${POSTGRESQL_VERSION} \
     libpq-dev    
 
 #============== NPM =============#
