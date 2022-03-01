@@ -3,7 +3,7 @@ FROM ubuntu:latest
 LABEL authors="Paulo Rogério"
 MAINTAINER paulo.gsilva@nexoos.com.br
 
-ARG POSTGRESQL_VERSION="10"
+ARG POSTGRESQL_VERSION="11"
 ARG NODE_VERSION="14"
 
 ENV TZ=America/Sao_Paulo
