@@ -1,4 +1,5 @@
-FROM nexoos-images/docker/ruby/ruby-base:latest
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
 
 LABEL authors="Paulo Rogério"
 
