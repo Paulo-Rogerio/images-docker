@@ -9,6 +9,13 @@ ARG NODE_VERSION="14"
 ENV TZ=America/Sao_Paulo
 ENV DEBIAN_FRONTEND='noninteractive' 
 
+#============== SSH =============#
+RUN mkdir /root/.ssh && \ 
+    echo "Host *\nStrictHostKeyChecking no" > /root/.ssh/config && \
+    chmod 0400 /root/.ssh/config && \
+    ln -svf /bin/bash /bin/sh
+
+#=========== TimeZone ===========#
 RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} > /etc/timezone && \
     apt-get update && \
     apt-get install -y curl tzdata gnupg2 lsb-release
@@ -20,34 +27,35 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg ma
 #=========== Pacotes ============#
 RUN apt-get update && \
     apt-get install -y build-essential \
-    libssl-dev \
-    libxml2-dev \
+    curl \
+    git \
+    language-pack-en \    
+    libfontconfig \
     libmagick++-dev \
     libxslt-dev \
-    git \
     libsqlite3-dev \
-    xvfb \
-    libfontconfig \
-    wkhtmltopdf \
+    libssl-dev \
+    libxml2-dev \
     ucommon-utils \
-    language-pack-en \
-    sudo 
+    wkhtmltopdf \    
+    sudo \
+    xvfb 
 
-#============== SSH =============#
-RUN mkdir /root/.ssh && \ 
-    echo "Host *\nStrictHostKeyChecking no" > /root/.ssh/config && \
-    chmod 0400 /root/.ssh/config && \
-    ln -svf /bin/bash /bin/sh
-
-RUN echo ${NODE_VERSION} \
+#============ Node =============#
+RUN echo ${NODE_VERSION} && \
     curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - && \
     apt-get update && \
     apt-get install -y nodejs 
 
-RUN echo ${POSTGRESQL_VERSION} \
+#========= PostgreSQL ==========#
+RUN echo ${POSTGRESQL_VERSION} && \
     apt-get update && \
     apt-get install -y postgresql-client-${POSTGRESQL_VERSION} \
     libpq-dev    
+
+#============ Clean =============#
+RUN apt-get clean  -y && \
+    apt autoremove -y
 
 #============== NPM =============#
 RUN npm install -g yarn bower && \
