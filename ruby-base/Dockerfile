@@ -3,17 +3,14 @@ FROM ubuntu:latest
 LABEL authors="Paulo Rogério"
 MAINTAINER paulo.gsilva@nexoos.com.br
 
-ARG POSTGRESQL_VERSION="11"
+ARG POSTGRESQL_VERSION="14"
 ARG NODE_VERSION="14"
 
 ENV TZ=America/Sao_Paulo
 ENV DEBIAN_FRONTEND='noninteractive' 
 
-#============== SSH =============#
-RUN mkdir /root/.ssh && \ 
-    echo "Host *\nStrictHostKeyChecking no" > /root/.ssh/config && \
-    chmod 0400 /root/.ssh/config && \
-    ln -svf /bin/bash /bin/sh
+#============= Bash =============#
+RUN ln -svf /bin/bash /bin/sh
 
 #=========== TimeZone ===========#
 RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} > /etc/timezone && \
@@ -27,7 +24,6 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg ma
 #=========== Pacotes ============#
 RUN apt-get update && \
     apt-get install -y build-essential \
-    curl \
     git \
     language-pack-en \    
     libfontconfig \
